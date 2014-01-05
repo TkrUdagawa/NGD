@@ -12,9 +12,11 @@ class Ngd_calculator
   end
 
   def google_distance(word1, word2)
-    score1 = get_google_score(word1)
-    score2 = get_google_score(word2)
-    and_score = get_google_and_score(word1, word2)
+    quoted_word1 = "\"%s\"" % word1
+    quoted_word2 = "\"%s\"" % word2
+    score1 = get_google_score(quoted_word1)
+    score2 = get_google_score(quoted_word2)
+    and_score = get_google_and_score(quoted_word1, quoted_word2)
     printf("score1 = %f, score2 = %f, and_score = %f, all_score = %f\n" %[score1, score2, and_score, @all_score])
     ret_val = ([score1, score2].max - and_score) / (@all_score - [score1, score2].min)
     return ret_val
@@ -33,7 +35,7 @@ class Ngd_calculator
   end
 
   def get_google_and_score(query1, query2)
-    query = "\"%s AND %s\"" % [query1, query2]
+    query = "%s AND %s" % [query1, query2]
     return get_google_score(query)
   end
 
